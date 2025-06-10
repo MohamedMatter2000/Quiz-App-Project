@@ -21,3 +21,14 @@ export interface ResetData {
   password: string;
   otp: string;
 }
+export interface User {
+  _id: string;
+  first_name: string;
+  last_name: string;
+  email: string;
+  role: string;
+}
+export interface AuthResponse {
+  token: string;
+  user: User;
+}

@@ -1,9 +1,9 @@
 import { useGetAllQuizzesQuery } from "../../Store/ApiStore/Api";
 import ErrorLoading from "../Shared/ErrorLoading/ErrorLoading";
 import NotFound from "../Shared/NotFound/NotFound";
-
+import { Quiz } from "../../interfaces/Quiz";
 export default function AllQuizData() {
-  const { data: quizData, isError, isLoading } = useGetAllQuizzesQuery({});
+  const { data: quizData, isError, isLoading } = useGetAllQuizzesQuery();
   return (
     <div>
       <h2 className="mb-4 text-2xl font-bold text-gray-900">All Quizzes</h2>
@@ -89,7 +89,7 @@ export default function AllQuizData() {
                   </td>
                 </tr>
               )}
-              {quizData?.map((quiz, index) => (
+              {quizData?.map((quiz: Quiz, index) => (
                 <tr
                   key={quiz._id}
                   className={`transition-colors duration-200 hover:bg-gray-50 ${

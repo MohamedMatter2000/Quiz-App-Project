@@ -1,6 +1,10 @@
+import { Quiz } from "../../interfaces/Quiz";
 import { useGetAllQuizResultsQuery } from "../../Store/ApiStore/Api";
 import ErrorLoading from "../Shared/ErrorLoading/ErrorLoading";
 import NotFound from "../Shared/NotFound/NotFound";
+interface QuizResult {
+  quiz: Quiz;
+}
 export default function ResultQuiz() {
   const { data, isError, isLoading } = useGetAllQuizResultsQuery({});
   return (
@@ -86,7 +90,7 @@ export default function ResultQuiz() {
                   </tr>
                 )}
               {data &&
-                data.map((ques, index) => (
+                data.map((ques: QuizResult, index: number) => (
                   <tr
                     key={ques?.quiz?._id}
                     className={`transition-colors duration-200 hover:bg-gray-50 ${

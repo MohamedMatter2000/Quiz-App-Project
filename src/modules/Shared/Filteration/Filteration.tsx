@@ -1,4 +1,27 @@
 import { Search, X } from "lucide-react";
+interface FilterConfig {
+  key: string;
+  type: string;
+  label: string;
+  placeholder: string;
+  className?: string;
+  formatOption?: (option: string) => string;
+}
+interface Filters {
+  [key: string]: string;
+}
+interface FilterationProps {
+  config: {
+    filters: FilterConfig[];
+  };
+  filters: Filters;
+  updateFilter: (key: string, value: string) => void;
+  clearFilters: () => void;
+  hasActiveFilters: boolean;
+  getUniqueValues: (key: string) => string[];
+  totalItems: number;
+  totalData: number;
+}
 const Filteration = ({
   config,
   filters,
@@ -8,8 +31,8 @@ const Filteration = ({
   getUniqueValues,
   totalItems,
   totalData,
-}) => {
-  const renderFilter = (filterConfig) => {
+}: FilterationProps) => {
+  const renderFilter = (filterConfig: FilterConfig) => {
     const value = filters[filterConfig.key] || "";
     switch (filterConfig.type) {
       case "search":

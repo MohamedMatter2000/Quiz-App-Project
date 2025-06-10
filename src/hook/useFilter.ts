@@ -1,17 +1,44 @@
 import { useState, useEffect, useMemo } from "react";
 import { useSearchParams } from "react-router-dom";
+interface FilterConfig<T> {
+  key: string;
+  type: "search" | "select";
+  label: string;
+  placeholder: string;
+  className?: string;
+  filterFunction: (item: T, value: string) => boolean;
+  getUniqueValues?: (data: T[]) => string[];
+}
+interface FilterConfiguration<T> {
+  filters: FilterConfig<T>[];
+}
+interface Filters {
+  [key: string]: string;
+}
+interface UseFilterReturn<T> {
+  filters: Filters;
+  filteredData: T[];
+  updateFilter: (key: string, value: string) => void;
+  clearFilters: () => void;
+  hasActiveFilters: boolean;
+  getUniqueValues: (key: string) => string[];
+  totalItems: number;
+}
 
-export const useFilter = (data, config) => {
+export const useFilter = <T extends Record<string, any>>(
+  data: T[] | undefined,
+  config: FilterConfiguration<T>
+): UseFilterReturn<T> => {
   const [searchParams, setSearchParams] = useSearchParams();
-  // Initialize state from URL params
-  const [filters, setFilters] = useState(() => {
-    const initialFilters = {};
+
+  const [filters, setFilters] = useState<Filters>(() => {
+    const initialFilters: Filters = {};
     config.filters.forEach((filter) => {
       initialFilters[filter.key] = searchParams.get(filter.key) || "";
     });
     return initialFilters;
   });
-  // Update URL when filters change
+
   useEffect(() => {
     const params = new URLSearchParams();
     Object.entries(filters).forEach(([key, value]) => {
@@ -21,7 +48,7 @@ export const useFilter = (data, config) => {
     });
     setSearchParams(params, { replace: true });
   }, [filters, setSearchParams]);
-  // Filter data based on configuration
+
   const filteredData = useMemo(() => {
     if (!data) return [];
     return data.filter((item) => {
@@ -32,29 +59,30 @@ export const useFilter = (data, config) => {
       });
     });
   }, [data, filters, config.filters]);
-  // Get unique values for select filters
-  const getUniqueValues = (key) => {
+
+  const getUniqueValues = (key: string): string[] => {
     if (!data) return [];
     const filterConfig = config.filters.find((f) => f.key === key);
     if (!filterConfig?.getUniqueValues) return [];
     return filterConfig.getUniqueValues(data);
   };
-  // Update a specific filter
-  const updateFilter = (key, value) => {
+
+  const updateFilter = (key: string, value: string): void => {
     setFilters((prev) => ({ ...prev, [key]: value }));
   };
-  // Clear all filters
-  const clearFilters = () => {
-    const clearedFilters = {};
+
+  const clearFilters = (): void => {
+    const clearedFilters: Filters = {};
     config.filters.forEach((filter) => {
       clearedFilters[filter.key] = "";
     });
     setFilters(clearedFilters);
   };
-  // Check if any filters are active
+
   const hasActiveFilters = Object.values(filters).some(
-    (value) => value && value.toString().trim(),
+    (value) => value && value.toString().trim()
   );
+
   return {
     filters,
     filteredData,

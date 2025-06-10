@@ -25,11 +25,11 @@ const authSlice = createSlice({
         localStorage.setItem("token", action.payload.data.accessToken);
         sessionStorage.setItem(
           "user",
-          JSON.stringify(action.payload.data.profile),
+          JSON.stringify(action.payload.data.profile)
         );
-      },
+      }
     );
   },
 });
-export const { setLogin, logout } = authSlice.actions;
+export const { logout } = authSlice.actions;
 export default authSlice.reducer;

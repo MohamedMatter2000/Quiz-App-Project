@@ -14,11 +14,13 @@ export interface Quiz {
   title: string;
   code: string;
   description: string;
-  schedule: string;
+  schadule: string;
   duration: number;
   score_per_question: number;
   status: string;
   questions: QuizQuestion[];
+  difficulty: string;
+  type: string;
 }
 
 export interface GroupOption {

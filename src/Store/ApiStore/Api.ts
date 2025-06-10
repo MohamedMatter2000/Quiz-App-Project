@@ -1,4 +1,16 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
+import {
+  AuthResponse,
+  LoginData,
+  RegisterData,
+  ForgetPassData,
+  ResetData,
+  ChangeData,
+} from "../../interfaces/authInterfaces";
+import { Question } from "../../interfaces/Question";
+import { Quiz } from "../../interfaces/Quiz";
+import { Student } from "../../interfaces/dashboard";
+import { Group } from "../../interfaces/Group";
 export const ApiSlice = createApi({
   reducerPath: "authApi",
   baseQuery: fetchBaseQuery({
@@ -14,35 +26,35 @@ export const ApiSlice = createApi({
   tagTypes: ["Group", "Student", "Question", "Quiz", "QuizResult"],
   endpoints: (builder) => ({
     // Auth API
-    login: builder.mutation({
+    login: builder.mutation<AuthResponse, LoginData>({
       query: (data) => ({
         url: "/auth/login",
         method: "POST",
         body: data,
       }),
     }),
-    register: builder.mutation({
+    register: builder.mutation<AuthResponse, RegisterData>({
       query: (data) => ({
         url: "/auth/register",
         method: "POST",
         body: data,
       }),
     }),
-    forgotPassword: builder.mutation({
+    forgotPassword: builder.mutation<AuthResponse, ForgetPassData>({
       query: (email) => ({
         url: "/auth/forgot-password",
         method: "POST",
         body: email,
       }),
     }),
-    resetPassword: builder.mutation({
+    resetPassword: builder.mutation<AuthResponse, ResetData>({
       query: (data) => ({
         url: "/auth/reset-password",
         method: "POST",
         body: data,
       }),
     }),
-    changePassword: builder.mutation({
+    changePassword: builder.mutation<AuthResponse, ChangeData>({
       query: (data) => ({
         url: "/auth/change-password",
         method: "POST",
@@ -51,15 +63,18 @@ export const ApiSlice = createApi({
     }),
 
     // Questions API
-    getQuestions: builder.query({
+    getQuestions: builder.query<Question[], void>({
       query: () => "/question",
       providesTags: (result) =>
         result
           ? [
-              ...result.map(({ id }) => ({ type: "Question", id })),
-              { type: "Question", id: "LIST" },
+              ...result.map(({ _id }) => ({
+                type: "Question" as const,
+                id: _id,
+              })),
+              { type: "Question" as const, id: "LIST" },
             ]
-          : [{ type: "Question", id: "LIST" }],
+          : [{ type: "Question" as const, id: "LIST" }],
     }),
     getQuestionById: builder.query({
       query: (id) => `/question/${id}`,
@@ -103,15 +118,15 @@ export const ApiSlice = createApi({
     }),
 
     // Groups API
-    GetGroups: builder.query({
+    GetGroups: builder.query<Group[], void>({
       query: () => "/group",
       providesTags: (result) =>
         result
           ? [
-              ...result.map(({ id }) => ({ type: "Group", id })),
-              { type: "Group", id: "LIST" },
+              ...result.map(({ _id }) => ({ type: "Group" as const, id: _id })),
+              { type: "Group" as const, id: "LIST" },
             ]
-          : [{ type: "Group", id: "LIST" }],
+          : [{ type: "Group" as const, id: "LIST" }],
     }),
     getGroupById: builder.query({
       query: (id) => `/group/${id}`,
@@ -148,15 +163,18 @@ export const ApiSlice = createApi({
     }),
 
     // Students API
-    getStudents: builder.query({
+    getStudents: builder.query<Student[], void>({
       query: () => "/student",
       providesTags: (result) =>
         result
           ? [
-              ...result.map(({ id }) => ({ type: "Student", id })),
-              { type: "Student", id: "LIST" },
+              ...result.map(({ _id }) => ({
+                type: "Student" as const,
+                id: _id,
+              })),
+              { type: "Student" as const, id: "LIST" },
             ]
-          : [{ type: "Student", id: "LIST" }],
+          : [{ type: "Student" as const, id: "LIST" }],
     }),
     getStudentsWithoutGroup: builder.query({
       query: () => "/student/without-group",
@@ -218,11 +236,11 @@ export const ApiSlice = createApi({
     }),
 
     // Quiz API
-    getAllQuizzes: builder.query({
+    getAllQuizzes: builder.query<Quiz[], void>({
       query: () => "/quiz",
       providesTags: ["Quiz"],
     }),
-    getQuizById: builder.query({
+    getQuizById: builder.query<Quiz, string>({
       query: (id) => `/quiz/${id}`,
       providesTags: (result, error, id) => [{ type: "Quiz", id }],
     }),
