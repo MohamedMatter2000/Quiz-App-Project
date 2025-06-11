@@ -1,6 +1,6 @@
 import { useEffect, useRef } from "react";
 import { X, Loader2, CheckCircle, Check, AlertTriangle } from "lucide-react";
-import deletconfirm from "../../../assets/DeleteConfim.jpg";
+import deletconfirm from "../../../assets/DeleteConfirm.png";
 export default function DeleteModal({
   isOpen,
   onClose,
@@ -13,8 +13,8 @@ export default function DeleteModal({
   isOpen: boolean;
   onClose: () => void;
   onConfirm: () => void | Promise<void>;
-  status: LoadingStatus;
-  size?: ModalSize;
+  status: string;
+  size?: string;
   HeadingMessage: string;
   Message: string;
 }) {
@@ -56,7 +56,6 @@ export default function DeleteModal({
     md: "max-w-lg",
     lg: "max-w-2xl",
     xl: "max-w-4xl",
-    "5xl": "max-w-5xl",
     full: "max-w-full mx-4",
   };
 
@@ -108,11 +107,11 @@ export default function DeleteModal({
                 <h3 className="mb-6 text-2xl font-semibold text-gray-800">
                   Are you sure you want to {Message}?
                 </h3>
-                <div className="mx-auto mb-6 w-72 overflow-hidden rounded-xl shadow-lg">
+                <div className="mx-auto mb-6 flex justify-around  overflow-hidden text-center rounded-xl ">
                   <img
                     src={deletconfirm}
                     alt="Delete confirmation"
-                    className="h-auto w-full object-cover"
+                    className="object-cover"
                   />
                 </div>
               </div>
