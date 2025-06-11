@@ -1,6 +1,6 @@
 import { useEffect, useRef } from "react";
 import { X, Loader2, CheckCircle, Check, AlertTriangle } from "lucide-react";
-import deletconfirm from "../../../assets/DeleteConfirm.png";
+import DeleteConfirm from "../../../../src/assets/DeleteConfirm.png";
 export default function DeleteModal({
   isOpen,
   onClose,
@@ -109,7 +109,7 @@ export default function DeleteModal({
                 </h3>
                 <div className="mx-auto mb-6 flex justify-around  overflow-hidden text-center rounded-xl ">
                   <img
-                    src={deletconfirm}
+                    src={DeleteConfirm}
                     alt="Delete confirmation"
                     className="object-cover"
                   />
