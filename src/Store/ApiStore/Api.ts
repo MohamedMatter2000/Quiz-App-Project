@@ -130,7 +130,7 @@ export const ApiSlice = createApi({
     }),
     getGroupById: builder.query({
       query: (id) => `/group/${id}`,
-      providesTags: (result, error, id) => [{ type: "Group", id }],
+      providesTags: (id) => [{ type: "Group", id }],
     }),
     createGroup: builder.mutation({
       query: (groupdata) => ({
@@ -138,7 +138,7 @@ export const ApiSlice = createApi({
         method: "POST",
         body: groupdata,
       }),
-      invalidatesTags: [{ type: "Group", id: "LIST" }],
+      invalidatesTags: [{ type: "Group", id: "LIST" }, "Student"],
     }),
     updateGroup: builder.mutation({
       query: ({ id, data }) => ({
@@ -146,9 +146,10 @@ export const ApiSlice = createApi({
         method: "PUT",
         body: data,
       }),
-      invalidatesTags: (result, error, id) => [
+      invalidatesTags: ({ id }) => [
         { type: "Group", id },
         { type: "Group", id: "LIST" },
+        "Student",
       ],
     }),
     deleteGroup: builder.mutation({
@@ -156,9 +157,10 @@ export const ApiSlice = createApi({
         url: `/group/${id}`,
         method: "DELETE",
       }),
-      invalidatesTags: (result, error, id) => [
+      invalidatesTags: (id) => [
         { type: "Group", id },
         { type: "Group", id: "LIST" },
+        "Student",
       ],
     }),
 
@@ -182,7 +184,7 @@ export const ApiSlice = createApi({
     }),
     getStudentById: builder.query({
       query: (id) => `/student/${id}`,
-      providesTags: (result, error, id) => [{ type: "Student", id }],
+      providesTags: (id) => [{ type: "Student", id }],
     }),
     getTopFiveStudents: builder.query({
       query: () => "/student/top-five",
@@ -193,9 +195,11 @@ export const ApiSlice = createApi({
         url: `/student/${id}`,
         method: "DELETE",
       }),
-      invalidatesTags: (result, error, id) => [
+      invalidatesTags: (id) => [
         { type: "Student", id },
         { type: "Student", id: "LIST" },
+        "Student",
+        "Group",
       ],
     }),
     addStudentToGroup: builder.mutation({
