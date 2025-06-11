@@ -3,19 +3,20 @@ import { Check, X } from "lucide-react";
 export default function AddUpdateModal({
   children,
   closeModal,
-  openModal,
+  isOpen,
   header,
   size = "5xl",
 }: {
   children: React.ReactNode;
   closeModal: () => void;
-  openModal: boolean;
+  isOpen: boolean;
   header: string;
   size?: string;
 }) {
+  console.log(isOpen, "openModal in AddUpdateModal");
   return (
     <>
-      <Modal show={openModal} size={size} popup className="backdrop-blur-sm">
+      <Modal show={isOpen} size={size} popup className="backdrop-blur-sm">
         <div className="overflow-hidden rounded-xl bg-white shadow-2xl">
           <div className="flex items-center justify-between border-b border-gray-200 bg-gradient-to-r from-gray-50 to-gray-100 px-6 py-4">
             <h2 className="text-2xl font-bold tracking-tight text-gray-800">

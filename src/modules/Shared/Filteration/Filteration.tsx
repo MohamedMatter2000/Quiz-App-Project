@@ -20,7 +20,7 @@ interface FilterationProps {
   hasActiveFilters: boolean;
   getUniqueValues: (key: string) => string[];
   totalItems: number;
-  totalData: number;
+  totalData: number | undefined;
 }
 const Filteration = ({
   config,

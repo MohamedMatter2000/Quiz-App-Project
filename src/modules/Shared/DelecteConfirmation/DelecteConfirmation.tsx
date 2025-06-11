@@ -12,9 +12,9 @@ export default function DeleteModal({
 }: {
   isOpen: boolean;
   onClose: () => void;
-  onConfirm: () => void;
-  status: "uninitialized" | "pending" | "fulfilled" | "rejected";
-  size?: "sm" | "md" | "lg" | "xl" | "5xl" | "full";
+  onConfirm: () => void | Promise<void>;
+  status: LoadingStatus;
+  size?: ModalSize;
   HeadingMessage: string;
   Message: string;
 }) {

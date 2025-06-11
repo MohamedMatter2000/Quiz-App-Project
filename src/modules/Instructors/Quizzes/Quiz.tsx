@@ -70,10 +70,6 @@ export default function Quiz() {
     setQuizId(QuizId);
     openModal("ViewQuiz");
   };
-  const handleCreateQuiz = (): void => {
-    setQuizId(null);
-    openModal("createQuiz");
-  };
   const close = (): void => {
     setQuizId(null);
     closeModal();
@@ -212,10 +208,9 @@ export default function Quiz() {
         <AddUpdateModal
           closeModal={close}
           header={QuizId ? "Updata Quiz" : "Create Quize"}
-          openModal={handleCreateQuiz}
+          isOpen={isOpen("createQuiz")}
         >
           <CreateQuiz
-            isOpen={() => isOpen("createQuiz")}
             group={UpdateGroup}
             onSuccess={handleQuizCreated}
             id={QuizId}
@@ -225,7 +220,7 @@ export default function Quiz() {
       {isOpen("success") && createdQuizCode && (
         <SucessMessage
           copied={copied}
-          openModal={() => openModal("success")}
+          isOpen={isOpen("success")}
           closeModal={handleCloseSuccessModal}
           createdQuizCode={createdQuizCode}
           handleCopyCode={handleCopyCode}
@@ -233,7 +228,7 @@ export default function Quiz() {
       )}
       {isOpen("DeleteQuiz") && QuizId && (
         <DeleteConfirmation
-          isOpen={openModal}
+          isOpen={isOpen("DeleteQuiz")}
           onClose={close}
           onConfirm={() => handleDeleteQuiz(QuizId)}
           status={status}
@@ -242,7 +237,11 @@ export default function Quiz() {
         />
       )}
       {isOpen("ViewQuiz") && (
-        <ViewModal isOpen={openModal} onClose={closeModal} title="Quiz Details">
+        <ViewModal
+          isOpen={isOpen("ViewQuiz")}
+          onClose={closeModal}
+          title="Quiz Details"
+        >
           <ViewQuiz Quiz={viewQuiz} key={viewQuiz?._id} />
         </ViewModal>
       )}
@@ -250,7 +249,7 @@ export default function Quiz() {
         <AddUpdateModal
           closeModal={closeModal}
           header={"Quiz Code"}
-          openModal={openModal}
+          isOpen={isOpen("JoinQuiz")}
           size="2xl"
         >
           <JoinQuiz closeModal={closeModal} handleData={handleJoinQuiz} />

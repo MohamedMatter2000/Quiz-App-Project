@@ -4,8 +4,6 @@ export interface QuestionOptions {
   C: string;
   D: string;
   _id?: string;
-  [key: string]: string | undefined; // Allow additional options if needed
-  // This allows for dynamic options like E, F, etc.
 }
 export interface QuestionFormData {
   title: string;

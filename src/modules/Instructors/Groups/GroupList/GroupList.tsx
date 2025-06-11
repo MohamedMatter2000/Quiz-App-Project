@@ -165,7 +165,7 @@ export default function GroupList() {
         <AddUpdateModal
           closeModal={close}
           header={GroupId ? "Updata Group" : "Create Group"}
-          openModal={openModal}
+          isOpen={isOpen("AddGroup")}
           size="2xl"
         >
           <GroupData key={GroupId} onSuccess={handleFormSuccess} id={GroupId} />
@@ -173,7 +173,7 @@ export default function GroupList() {
       )}
       {isOpen("DeleteGroup") && GroupId && (
         <DeleteConfirmation
-          isOpen={openModal}
+          isOpen={isOpen("DeleteGroup")}
           onClose={close}
           onConfirm={() => handleDeleteGroup(GroupId)}
           status={status}

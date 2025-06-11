@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 import { PlusCircle } from "lucide-react";
 import AddUpdateModal from "../../../Shared/Add-Update-Modal/AddUpdateModal";
 import {
@@ -171,7 +170,7 @@ export default function QuestionList() {
         <AddUpdateModal
           closeModal={closeModal}
           header={QuestionId ? "Updata Question" : "Create Question"}
-          openModal={openModal}
+          isOpen={isOpen("AddQuestion")}
         >
           <QuestionData
             key={QuestionId}
@@ -182,7 +181,7 @@ export default function QuestionList() {
       )}
       {isOpen("DeleteQuestion") && (
         <DeleteConfirmation
-          isOpen={openModal}
+          isOpen={isOpen("DeleteQuestion")}
           onClose={closeModal}
           onConfirm={() => handleDeleteQuestion(QuestionId)}
           status={status}
@@ -192,7 +191,7 @@ export default function QuestionList() {
       )}
       {isOpen("ViewQuestion") && (
         <ViewModal
-          isOpen={openModal}
+          isOpen={isOpen("ViewQuestion")}
           onClose={closeModal}
           title="Question Details"
         >

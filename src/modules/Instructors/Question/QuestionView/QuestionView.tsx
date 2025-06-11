@@ -1,35 +1,28 @@
-type Question = {
-  _id: string;
-  title: string;
-  description: string;
-  options: string;
-  answer: string;
-  difficulty: string;
-  points: number;
-  type: string;
-  status: string;
-};
+import { Question } from "../../../../interfaces/Question";
 
-export default function QuizView({ Question }: { Question: Question }) {
+interface QuestionViewProps {
+  Question: Question | undefined;
+}
+export default function QuizView({ Question }: QuestionViewProps) {
   return (
-    <div key={Question._id}>
+    <div key={Question?._id}>
       <div className="my-4">
         <div className="rounded-lg bg-gray-50 p-4">
           <h3 className="text-lg font-medium text-gray-800">Question</h3>
           <p className="mt-2 text-gray-700">
-            Title : {Question.title || "No Question"}
+            Title : {Question?.title || "No Question"}
           </p>
           <p className="mt-2 text-gray-700">
-            Description : {Question.description || "No Question"}
+            Description : {Question?.description || "No Question"}
           </p>
         </div>
       </div>
       <div className="px-4">
         <h3 className="text-lg font-medium text-gray-800">Options</h3>
         <div className="my-4 space-y-2">
-          {Object.entries(Question.options || {}).map(([key, value]) => {
+          {Object.entries(Question?.options || {}).map(([key, value]) => {
             if (key === "_id") return null;
-            const isCorrect = Question.answer === key;
+            const isCorrect = Question?.answer === key;
             return (
               <div
                 key={key}
@@ -64,21 +57,21 @@ export default function QuizView({ Question }: { Question: Question }) {
           <div>
             <h3 className="text-sm font-medium text-gray-500">Difficulty</h3>
             <p className="capitalize text-gray-800">
-              {Question.difficulty || "N/A"}
+              {Question?.difficulty || "N/A"}
             </p>
           </div>
           <div>
             <h3 className="text-sm font-medium text-gray-500">Points</h3>
-            <p className="text-gray-800">{Question.points || "0"}</p>
+            <p className="text-gray-800">{Question?.points || "0"}</p>
           </div>
           <div>
             <h3 className="text-sm font-medium text-gray-500">Type</h3>
-            <p className="text-gray-800">{Question.type || "N/A"}</p>
+            <p className="text-gray-800">{Question?.type || "N/A"}</p>
           </div>
           <div>
             <h3 className="text-sm font-medium text-gray-500">Status</h3>
             <p className="capitalize text-gray-800">
-              {Question.status || "N/A"}
+              {Question?.status || "N/A"}
             </p>
           </div>
         </div>

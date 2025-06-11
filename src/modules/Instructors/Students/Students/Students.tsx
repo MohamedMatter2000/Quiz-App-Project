@@ -164,7 +164,7 @@ export default function Students() {
       )}
       {isOpen("ViewStudent") && selectedStudentid && (
         <ViewModal
-          isOpen={openModal}
+          isOpen={isOpen("ViewStudent")}
           onClose={close}
           title={"Student Details"}
           size="lg"
@@ -174,7 +174,7 @@ export default function Students() {
       )}
       {isOpen("DeleteStudent") && selectedStudentid && (
         <DeleteConfirmation
-          isOpen={openModal}
+          isOpen={isOpen("DeleteStudent")}
           onClose={close}
           onConfirm={() => handleDeleteStudent(selectedStudentid)}
           status={status}
@@ -186,7 +186,7 @@ export default function Students() {
         selectedStudentid &&
         selectedGroupId && (
           <DeleteConfirmation
-            isOpen={openModal}
+            isOpen={isOpen("DeleteStudentFromGroup")}
             onClose={close}
             onConfirm={() =>
               handleDeleteStudentFromGroup(selectedStudentid, selectedGroupId)

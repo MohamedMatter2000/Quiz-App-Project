@@ -1,20 +1,20 @@
 import { Modal, ModalBody } from "flowbite-react";
 import { Check, Copy } from "lucide-react";
 export default function SucessMessage({
-  openModal,
+  isOpen,
   createdQuizCode,
   handleCopyCode,
   copied,
   closeModal,
 }: {
-  openModal: boolean;
+   isOpen: boolean;
   createdQuizCode: string;
   handleCopyCode: () => void;
   copied: boolean;
   closeModal: () => void;
 }) {
   return (
-    <Modal show={openModal} size="2xl" popup className="backdrop-blur-sm">
+    <Modal show={isOpen} size="2xl" popup className="backdrop-blur-sm">
       <ModalBody className="overflow-hidden rounded-xl bg-white p-8 shadow-2xl">
         <div className="custom-scrollbar max-h-[70vh] overflow-y-auto">
           <div className="p-6">

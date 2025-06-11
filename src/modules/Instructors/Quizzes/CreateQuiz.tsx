@@ -5,12 +5,11 @@ import FormInputCrud from "../../Shared/FormInput/FormInputCrud";
 import { getValidationRules } from "../../../hook/usevalidations";
 import { toast } from "react-toastify";
 interface CreateQuizProps {
-  isOpen: () => boolean;
   group: GroupOption[];
   onSuccess: (quizData: { code: string }) => void;
   id: string | null;
 }
-const CreateQuiz = ({ isOpen, group, onSuccess, id }: CreateQuizProps) => {
+const CreateQuiz = ({ group, onSuccess, id }: CreateQuizProps) => {
   const [createQuiz, { isLoading: isCreate }] = useCreateQuizMutation();
   const {
     TitleQuiz,
@@ -54,7 +53,6 @@ const CreateQuiz = ({ isOpen, group, onSuccess, id }: CreateQuizProps) => {
       reset();
     }
   };
-  if (!isOpen) return null;
   return (
     <form
       id="modal-form"
