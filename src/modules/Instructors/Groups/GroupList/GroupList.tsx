@@ -27,7 +27,6 @@ export default function GroupList() {
   const viewGroup: Group | undefined = Groups?.filter(
     (item: Group | undefined) => item?._id === GroupId
   )[0];
-  console.log("viewGroup", viewGroup);
   const getStatusColor = (status: string): string => {
     switch (status.toLowerCase()) {
       case "active":

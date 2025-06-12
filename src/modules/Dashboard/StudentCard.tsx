@@ -11,9 +11,7 @@ interface StudentCardProps {
   Student: Student;
   onView: (student: Student) => void;
 }
-
 export const StudentCard = ({ Student, onView }: StudentCardProps) => {
-  console.log(Student);
   if (!Student) return null;
   const name = `${Student.first_name} ${Student.last_name}`;
   const avgScore = Math.round(Student.avg_score) || Student.avg_score;

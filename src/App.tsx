@@ -1,20 +1,35 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import Login from "./modules/Auth/Login/Login";
-import Register from "./modules/Auth/Register/Register";
-import ForgotPassword from "./modules/Auth/Forgot Password/ForgotPassword";
-import ResetPassword from "./modules/Auth/Reset password/ResetPassword";
-import ChangePassword from "./modules/Auth/Change Password/ChangePassword";
-import AuthLayouts from "./modules/Shared/AuthLayouts/AuthLayouts";
+import { Suspense, lazy } from "react";
 import { ToastContainer } from "react-toastify";
-import Dashboard from "./modules/Dashboard/Dashboard";
-import QuestionList from "./modules/Instructors/Question/QuestionList/QuestionList";
 import "@fortawesome/fontawesome-free/css/all.min.css";
-import Students from "./modules/Instructors/Students/Students/Students";
-import GroupList from "./modules/Instructors/Groups/GroupList/GroupList";
-import Quiz from "./modules/Instructors/Quizzes/Quiz";
-import Result from "./modules/Result/Result";
-import NotFoundPage from "./modules/Shared/NotFoundPage/NotFoundPage";
+import AuthLayouts from "./modules/Shared/AuthLayouts/AuthLayouts";
 import MasterAdminLayout from "./modules/Shared/MasterAdminLayout/MasterAdminLayout";
+import LoadingSpinner from "./modules/Shared/LoadingSpinner/LoadingSpinner";
+import NotFoundPage from "./modules/Shared/NotFoundPage/NotFoundPage";
+import ProtectedRoute from "./modules/Shared/Protected Route/ProtectedRoute";
+const Login = lazy(() => import("./modules/Auth/Login/Login"));
+const Register = lazy(() => import("./modules/Auth/Register/Register"));
+const ForgotPassword = lazy(
+  () => import("./modules/Auth/Forgot Password/ForgotPassword")
+);
+const ResetPassword = lazy(
+  () => import("./modules/Auth/Reset password/ResetPassword")
+);
+const ChangePassword = lazy(
+  () => import("./modules/Auth/Change Password/ChangePassword")
+);
+const Dashboard = lazy(() => import("./modules/Dashboard/Dashboard"));
+const QuestionList = lazy(
+  () => import("./modules/Instructors/Question/QuestionList/QuestionList")
+);
+const Students = lazy(
+  () => import("./modules/Instructors/Students/Students/Students")
+);
+const GroupList = lazy(
+  () => import("./modules/Instructors/Groups/GroupList/GroupList")
+);
+const Quiz = lazy(() => import("./modules/Instructors/Quizzes/Quiz"));
+const Result = lazy(() => import("./modules/Result/Result"));
 const router = createBrowserRouter([
   {
     path: "/",
@@ -31,7 +46,11 @@ const router = createBrowserRouter([
   },
   {
     path: "/dashboard",
-    element: <MasterAdminLayout />,
+    element: (
+      <ProtectedRoute>
+        <MasterAdminLayout />
+      </ProtectedRoute>
+    ),
     errorElement: <NotFoundPage />,
     children: [
       { index: true, element: <Dashboard /> },
@@ -45,10 +64,20 @@ const router = createBrowserRouter([
 ]);
 const App = () => {
   return (
-    <>
-      <ToastContainer position="top-center" />
+    <Suspense fallback={<LoadingSpinner />}>
+      <ToastContainer
+        position="top-center"
+        autoClose={3000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+      />
       <RouterProvider router={router} />
-    </>
+    </Suspense>
   );
 };
 

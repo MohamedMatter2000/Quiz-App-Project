@@ -32,7 +32,6 @@ export default function QuestionList() {
     (item: Question) => item?._id === QuestionId
   )[0];
   const dispatch = useDispatch();
-  console.log(data, "viewQuestion");
   const searchFilterConfig: SearchFilterConfig = {
     filters: [
       {

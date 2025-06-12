@@ -13,7 +13,6 @@ export default function AddUpdateModal({
   header: string;
   size?: string;
 }) {
-  console.log(isOpen, "openModal in AddUpdateModal");
   return (
     <>
       <Modal show={isOpen} size={size} popup className="backdrop-blur-sm">

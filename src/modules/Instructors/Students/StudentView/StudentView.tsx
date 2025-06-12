@@ -29,7 +29,6 @@ export default function StudentView({
   };
   return (
     <div className="space-y-6 p-6">
-      {/* Personal Information */}
       <div className="rounded-lg bg-gray-50 p-4">
         <h3 className="mb-4 flex items-center text-lg font-semibold text-gray-800">
           <User className="mr-2" size={20} />
@@ -66,7 +65,6 @@ export default function StudentView({
           </div>
         </div>
       </div>
-      {/* Academic Performance */}
       {show && (
         <div className="rounded-lg bg-blue-50 p-4">
           <h3 className="mb-4 flex items-center text-lg font-semibold text-gray-800">
@@ -105,7 +103,6 @@ export default function StudentView({
           </div>
         </div>
       )}
-      {/* Group Information */}
       <div className="rounded-lg bg-green-50 p-4">
         <h3 className="mb-4 flex items-center text-lg font-semibold text-gray-800">
           <Users className="mr-2" size={20} />

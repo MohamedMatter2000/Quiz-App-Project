@@ -29,7 +29,6 @@ const GroupData = ({
     refetchOnMountOrArgChange: true,
     skip: !isEditing,
   });
-  console.log(studentsWithoutGroup, "studentsWithoutGroup");
   const { NameGroup, StudentsGroup } = getValidationRules();
   const {
     register,

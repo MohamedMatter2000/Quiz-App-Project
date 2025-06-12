@@ -66,7 +66,7 @@ export default function Students() {
       {
         key: "Name",
         type: "search",
-        label: "Search by Title",
+        label: "Search by Name",
         placeholder: "Search Student...",
         filterFunction: (item, value) =>
           `${item.first_name} ${item.last_name}`

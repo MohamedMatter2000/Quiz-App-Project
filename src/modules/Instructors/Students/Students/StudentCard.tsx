@@ -85,7 +85,6 @@ export default function StudentCard({
               )}
             </p>
           </div>
-          {/* Dropdown Menu */}
           <DropdownMenu
             student={student}
             isOpen={isOpen(dropdownModalId)}
